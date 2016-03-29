@@ -9,9 +9,11 @@ Build with [react-native-desktop
 ](https://github.com/ptmt/react-native-desktop).
 
 <p align="center">
-	<img src="http://i.imgur.com/DtYL7Ga.png">
+	<img src="http://i.imgur.com/jIJ4Gcf.gif">
 </p>
 
+> Choose your color and click to copy the color code
+>
 > [Download the app](https://github.com/BafS/Material-Colors-native/releases/download/v0.1.0/MaterialColors.zip)
 
 # Why ?
