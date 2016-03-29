@@ -34,6 +34,7 @@ const ColorBox = ({ name, color }) => {
           fontSize: 11
         }}>{name.toUpperCase()}</Text>
       <Text style={{
+          fontFamily: 'Monaco',
           color: textColor,
           fontSize: 11
         }}>{color}</Text>
