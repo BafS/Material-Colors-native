@@ -17,7 +17,7 @@
         NSRect contentSize = NSMakeRect(0, 0, 200, 515); // initial size of main NSWindow
 
         self.window = [[NSWindow alloc] initWithContentRect:contentSize
-                                                  styleMask:NSTitledWindowMask | NSFullSizeContentViewWindowMask | NSMiniaturizableWindowMask | NSClosableWindowMask
+                                                  styleMask:NSTitledWindowMask |NSFullSizeContentViewWindowMask | NSMiniaturizableWindowMask | NSClosableWindowMask
                                                     backing:NSBackingStoreBuffered
                                                       defer:NO];
         NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:self.window];
