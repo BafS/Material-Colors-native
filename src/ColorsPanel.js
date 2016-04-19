@@ -1,10 +1,12 @@
-import React, {
+import {
   Animated,
   Text,
   View,
   Clipboard,
   TouchableOpacity
 } from 'react-native-desktop';
+
+import React from 'react';
 
 const ColorBox = ({ name, color }) => {
   let textColor = '#111';

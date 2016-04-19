@@ -1,9 +1,11 @@
-import React, {
+import {
   AppRegistry,
   StyleSheet,
   View,
   Clipboard,
 } from 'react-native-desktop';
+
+import React from 'react';
 
 import ColorsPanel from './src/ColorsPanel';
 import ColorsListPanel from './src/ColorsListPanel';

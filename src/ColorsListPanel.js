@@ -1,7 +1,9 @@
-import React, {
+import {
   View,
   TouchableOpacity
 } from 'react-native-desktop';
+
+import React from 'react';
 
 const ColorCircle = ({ color, selected, onMouseEnter, onMouseLeave }) => {
   return (
