@@ -11,27 +11,54 @@
 
 @implementation AppDelegate
 
+NSMenu *statusItemMenu;
+NSStatusItem *statusItem;
+NSPopover *popover;
+NSViewController *popoverViewController;
+NSEvent * popoverTransiencyMonitor;
+
+- (void)statusClicked:(id)sender {
+  if(popoverTransiencyMonitor == nil) {
+    [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
+
+    popoverTransiencyMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask handler:^(NSEvent* event) { [self statusClicked:sender]; }];
+  } else {
+    [NSEvent removeMonitor:popoverTransiencyMonitor];
+    
+    popoverTransiencyMonitor = nil;
+    
+    [popover close];
+  }
+}
+
 -(id)init
 {
     if(self = [super init]) {
-        NSRect contentSize = NSMakeRect(0, 0, 200, 515); // initial size of main NSWindow
 
-        self.window = [[NSWindow alloc] initWithContentRect:contentSize
-                                                  styleMask:NSTitledWindowMask |NSFullSizeContentViewWindowMask | NSMiniaturizableWindowMask | NSClosableWindowMask
-                                                    backing:NSBackingStoreBuffered
-                                                      defer:NO];
-        NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:self.window];
+        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:(NSSquareStatusItemLength)];
+        // statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+        [statusItem setTitle:@"MC"];
 
-        [[self window] setTitleVisibility:NSWindowTitleHidden];
-        [[self window] setTitlebarAppearsTransparent:YES];
-        [[self window] setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
+        [statusItem setTarget:self];
 
-        [windowController setShouldCascadeWindows:NO];
-        [windowController setWindowFrameAutosaveName:@"MaterialColors"];
+        statusItem.button.action = @selector(statusClicked:);
+//        statusItem.doubleAction = @selector(statusClicked:);
+        statusItem.action = @selector(statusClicked:);
+      
+        statusItemMenu = [[NSMenu alloc] init];
+        statusItemMenu.autoenablesItems = NO;
+        statusItem.target = self;
 
-        [windowController showWindow:self.window];
+        popover = [[NSPopover alloc] init];
 
-        [self setUpApplicationMenu];
+        [popover setDelegate:self];
+
+        [popover setAnimates: NO];
+        [popover setBehavior: NSPopoverBehaviorApplicationDefined];
+//        [popover setBehavior: NSPopoverBehaviorTransient];
+        [popover setContentSize: NSMakeSize(200.0f, 510.0f)];
+
+        popoverViewController = [[NSViewController alloc] initWithNibName:@"View" bundle:nil];
     }
     return self;
 }
@@ -46,9 +73,14 @@
                                                      moduleName:@"MaterialColors"
                                               initialProperties:nil];
 
+    [popoverViewController setView: rootView];
+    [popover setContentViewController: popoverViewController];
+//    [popover becomeFirstResponder];
+//    [popoverViewController becomeFirstResponder];
+    [rootView becomeFirstResponder];
 
-
-    [self.window setContentView:rootView];
+//    [self.window setContentView:rootView];
+//    [[NSApplication sharedApplication] activateIgnoringOtherApps : YES];
 }
 
 
@@ -70,21 +102,6 @@
 {
     [RCTJavaScriptLoader loadBundleAtURL:[self sourceURLForBridge:bridge]
                               onComplete:loadCallback];
-}
-
-
-- (void)setUpApplicationMenu
-{
-    NSMenuItem *containerItem = [[NSMenuItem alloc] init];
-    NSMenu *rootMenu = [[NSMenu alloc] initWithTitle:@"" ];
-    [containerItem setSubmenu:rootMenu];
-    [rootMenu addItemWithTitle:@"Quit MaterialColors" action:@selector(terminate:) keyEquivalent:@"q"];
-    [[NSApp mainMenu] addItem:containerItem];
-}
-
-- (id)firstResponder
-{
-    return [self.window firstResponder];
 }
 
 @end

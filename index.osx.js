@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
 
   leftPane: {
-    marginTop: 26,
+    marginTop: 10,
     padding: 6,
     paddingTop: 4,
     paddingBottom: 20,

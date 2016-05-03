@@ -12,7 +12,7 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
-@property (strong, nonatomic) NSWindow *window;
+//@property (strong, nonatomic) NSWindow *window;
 @property (nonatomic, readonly) RCTBridge *bridge;
 
 @end
