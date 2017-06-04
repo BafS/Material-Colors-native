@@ -1,11 +1,9 @@
+import React from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  View,
-  Clipboard,
-} from 'react-native-desktop';
-
-import React from 'react';
+  View
+} from 'react-native-macos';
 
 import ColorsPanel from './src/ColorsPanel';
 import ColorsListPanel from './src/ColorsListPanel';
@@ -23,7 +21,6 @@ class MaterialColors extends React.Component {
   }
 
   changeColor(colorName) {
-    Clipboard.setString(colorName);
     this.setState({
       colorName
     });
@@ -52,22 +49,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
 
   leftPane: {
-    marginTop: 10,
+    marginTop: 26,
     padding: 6,
     paddingTop: 4,
-    paddingBottom: 20,
-    borderRightWidth: 1,
-    borderRightColor: '#eee'
+    paddingBottom: 20
   },
 
   rightPane: {
     flex: 1,
     paddingTop: 0,
-    padding: 10
+    paddingRight: 10
   },
 });
 

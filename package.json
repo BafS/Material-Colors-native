@@ -1,18 +1,20 @@
 {
   "name": "MaterialColors",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native-desktop/local-cli/cli.js start"
+    "start": "node node_modules/react-native-macos/local-cli/cli.js start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "macos": "react-native-macos run-macos"
   },
   "dependencies": {
-    "react": "^15.0.1",
-    "react-native-desktop": "^0.6.0"
+    "react": "^15.3.2",
+    "react-native-macos": "~0.12.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.2",
-    "eslint": "^2.8.0",
-    "eslint-plugin-flow-vars": "^0.3.0",
-    "eslint-plugin-react": "^5.0.1"
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.1"
   }
 }

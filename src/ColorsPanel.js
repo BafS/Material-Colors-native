@@ -1,12 +1,11 @@
+import React from 'react';
 import {
   Animated,
   Text,
   View,
   Clipboard,
   TouchableOpacity
-} from 'react-native-desktop';
-
-import React from 'react';
+} from 'react-native-macos';
 
 const ColorBox = ({ name, color }) => {
   let textColor = '#111';
@@ -15,6 +14,7 @@ const ColorBox = ({ name, color }) => {
   if (lum < 26) {
     textColor = '#fff';
   }
+
   return (
     <TouchableOpacity
       style={{
@@ -25,6 +25,7 @@ const ColorBox = ({ name, color }) => {
         paddingRight: 10,
         alignItems: 'center',
         margin: 1,
+        borderColor: 'transparent',
         borderRadius: 2,
         height: 32,
         backgroundColor: color

@@ -13,10 +13,8 @@
  int main(int argc, char * argv[]) {
      @autoreleasepool {
          NSApplication * application = [NSApplication sharedApplication];
-         [[NSApplication sharedApplication] activateIgnoringOtherApps : YES];
-//        [[NSUserDefaults standardUserDefaults] boolForKey: NO]; /////
-//         NSMenu *mainMenu = [[NSMenu alloc] initWithTitle:@"MaterialColors"];
-//         [NSApp setMainMenu:mainMenu];
+         NSMenu *mainMenu = [[NSMenu alloc] initWithTitle:@"MaterialColors"];
+         [NSApp setMainMenu:mainMenu];
          AppDelegate * appDelegate = [[AppDelegate alloc] init];
          [application setDelegate:appDelegate];
          [application run];
