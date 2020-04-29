@@ -8,12 +8,9 @@ import {
 } from 'react-native-macos';
 
 const ColorBox = ({ name, color }) => {
-  let textColor = '#111';
-  let hexStr = color.replace(/^#/, '');
-  let lum = parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
-  if (lum < 26) {
-    textColor = '#fff';
-  }
+  const hexStr = color.replace(/^#/, '');
+  const lum = parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
+  const textColor = lum < 26 ? '#fff' : '#111';
 
   return (
     <TouchableOpacity
