@@ -1,107 +1,93 @@
-import React from 'react';
-import {
-  Animated,
-  Text,
-  View,
-  Clipboard,
-  TouchableOpacity
-} from 'react-native-macos';
+import React, {useEffect, useRef} from 'react';
+import {Animated, Text, View, Clipboard, TouchableOpacity} from 'react-native';
 
-const ColorBox = ({ name, color }) => {
+const luminosity = hexStr =>
+  parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
+
+const ColorBox = ({name, color}) => {
   const hexStr = color.replace(/^#/, '');
-  const lum = parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
-  const textColor = lum < 26 ? '#fff' : '#111';
+  const textColor = luminosity(hexStr) < 26 ? '#fff' : '#111';
 
   return (
     <TouchableOpacity
+      activeOpacity={0.4}
       style={{
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingLeft: 10,
         paddingRight: 10,
         alignItems: 'center',
         margin: 1,
-        borderColor: 'transparent',
         borderRadius: 2,
         height: 32,
-        backgroundColor: color
+        backgroundColor: color,
       }}
-      onPress={() => Clipboard.setString(color)}
-    >
-      <Text style={{
+      onPress={() => Clipboard.setString(color)}>
+      <Text
+        style={{
           color: textColor,
-          fontSize: 11
-        }}>{name.toUpperCase()}</Text>
-      <Text style={{
+          fontSize: 11,
+        }}>
+        {name.toUpperCase()}
+      </Text>
+      <Text
+        style={{
           fontFamily: 'Monaco',
           color: textColor,
-          fontSize: 11
-        }}>{color}</Text>
+          fontSize: 11,
+        }}>
+        {color}
+      </Text>
     </TouchableOpacity>
   );
 };
 
-export default class ColorsPanel extends React.Component {
+export default ({style, palette, name}) => {
+  const springAnim = useRef(new Animated.Value(0)).current;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      anim: new Animated.Value(0.6)
-    };
-  }
+  useEffect(() => {
+    springAnim.setValue(0.6);
 
-  componentDidMount() {
-    this.animate();
-  }
+    Animated.spring(springAnim, {
+      toValue: 1,
+      tension: 80,
+      friction: 8.5,
+      useNativeDriver: true,
+    }).start();
+  }, [springAnim, name]);
 
-  componentDidUpdate() {
-    this.animate();
-  }
-
-  componentWillReceiveProps() {
-    this.setState({
-      anim: new Animated.Value(0.6)
-    });
-  }
-
-  animate() {
-    Animated.spring(
-      this.state.anim,
-      {
-        toValue: 1,
-        tension: 80,
-        friction: 8.5,
-      },
-    ).start();
-  }
-
-  render() {
-    const { style, palette, name } = this.props;
-
-    return (
-      <View style={style}>
+  return (
+    <View style={style}>
+      <Text
+        style={{
+          margin: 8,
+          textAlign: 'right',
+          fontSize: 11,
+          color: '#666',
+        }}>
+        {name[0].toUpperCase() + name.slice(1).replace('-', ' ')}
+      </Text>
+      <Animated.View
+        style={[
+          style,
+          {
+            opacity: springAnim,
+            transform: [{scaleY: springAnim}],
+          },
+        ]}>
+        {Object.keys(palette).map((value, index) => (
+          <ColorBox key={index} name={value} color={palette[value].color} />
+        ))}
         <Text
           style={{
             margin: 8,
             textAlign: 'right',
-            fontSize: 11,
-            color: '#666'
-          }}>
-          {name[0].toUpperCase() + name.slice(1).replace('-', ' ')}
-        </Text>
-        <Animated.View
-          style={{
-            opacity: this.state.anim,
-            transform: [
-              {scaleY: this.state.anim}
-            ]
-          }}>
-          {Object.keys(palette).map((value, index) => {
-            return <ColorBox key={index} name={value} color={palette[value].color} />;
-          })}
-        </Animated.View>
-      </View>
-    );
-  }
-}
+            fontSize: 17,
+            color: '#333',
+          }}
+        />
+      </Animated.View>
+    </View>
+  );
+};

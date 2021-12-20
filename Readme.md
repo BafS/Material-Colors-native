@@ -2,13 +2,13 @@
 
 Material Colors Native App for OS X
 
-> [Download the app](https://github.com/BafS/Material-Colors-native/releases/download/v0.2.0/MaterialColors.zip)
+> [Download the app](https://github.com/BafS/Material-Colors-native/releases/download/v0.3.0/materialcolors.app.zip)
 
 Heavily inspired by [MaterialColorsApp
 ](https://github.com/romannurik/MaterialColorsApp).
 
 Build with [react-native-macos
-](https://github.com/ptmt/react-native-macos).
+](https://github.com/microsoft/react-native-macos).
 
 <p align="center">
 	<img src="http://i.imgur.com/jIJ4Gcf.gif">
