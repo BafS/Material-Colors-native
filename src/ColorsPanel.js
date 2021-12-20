@@ -1,10 +1,12 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated, Text, View, Clipboard, TouchableOpacity} from 'react-native';
 
+const luminosity = hexStr =>
+  parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
+
 const ColorBox = ({name, color}) => {
   const hexStr = color.replace(/^#/, '');
-  const lum = parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
-  const textColor = lum < 26 ? '#fff' : '#111';
+  const textColor = luminosity(hexStr) < 26 ? '#fff' : '#111';
 
   return (
     <TouchableOpacity
@@ -19,19 +21,24 @@ const ColorBox = ({name, color}) => {
         margin: 1,
         borderRadius: 2,
         height: 32,
-        backgroundColor: color
+        backgroundColor: color,
       }}
       onPress={() => Clipboard.setString(color)}>
       <Text
         style={{
           color: textColor,
-          fontSize: 11
-        }}>{name.toUpperCase()}</Text>
-      <Text style={{
+          fontSize: 11,
+        }}>
+        {name.toUpperCase()}
+      </Text>
+      <Text
+        style={{
           fontFamily: 'Monaco',
           color: textColor,
-          fontSize: 11
-        }}>{color}</Text>
+          fontSize: 11,
+        }}>
+        {color}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -57,7 +64,7 @@ export default ({style, palette, name}) => {
           margin: 8,
           textAlign: 'right',
           fontSize: 11,
-          color: '#666'
+          color: '#666',
         }}>
         {name[0].toUpperCase() + name.slice(1).replace('-', ' ')}
       </Text>
@@ -69,17 +76,17 @@ export default ({style, palette, name}) => {
             transform: [{scaleY: springAnim}],
           },
         ]}>
-        {Object.keys(palette).map((value, index) => {
-          return <ColorBox key={index} name={value} color={palette[value].color}/>;
-        })}
-      <Text
-        style={{
-          margin: 8,
-          textAlign: 'right',
-          fontSize: 17,
-          color: '#333'
-        }}>
-      </Text>
+        {Object.keys(palette).map((value, index) => (
+          <ColorBox key={index} name={value} color={palette[value].color} />
+        ))}
+        <Text
+          style={{
+            margin: 8,
+            textAlign: 'right',
+            fontSize: 17,
+            color: '#333',
+          }}
+        />
       </Animated.View>
     </View>
   );
