@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0620"
+   LastUpgradeVersion = "1140"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,23 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "MaterialColors.app"
-               BlueprintName = "MaterialColors"
-               ReferencedContainer = "container:MaterialColors.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "MaterialColorsTests.xctest"
-               BlueprintName = "MaterialColorsTests"
-               ReferencedContainer = "container:MaterialColors.xcodeproj">
+               BuildableName = "materialcolors.app"
+               BlueprintName = "materialcolors-iOS"
+               ReferencedContainer = "container:materialcolors.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,28 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "MaterialColorsTests.xctest"
-               BlueprintName = "MaterialColorsTests"
-               ReferencedContainer = "container:MaterialColors.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MaterialColors.app"
-            BlueprintName = "MaterialColors"
-            ReferencedContainer = "container:MaterialColors.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -80,13 +45,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MaterialColors.app"
-            BlueprintName = "MaterialColors"
-            ReferencedContainer = "container:MaterialColors.xcodeproj">
+            BuildableName = "materialcolors.app"
+            BlueprintName = "materialcolors-iOS"
+            ReferencedContainer = "container:materialcolors.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -99,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MaterialColors.app"
-            BlueprintName = "MaterialColors"
-            ReferencedContainer = "container:MaterialColors.xcodeproj">
+            BuildableName = "materialcolors.app"
+            BlueprintName = "materialcolors-iOS"
+            ReferencedContainer = "container:materialcolors.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
