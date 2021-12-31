@@ -28,6 +28,9 @@ const ColorCircle = ({color, selected, onMouseEnter, onMouseLeave}) => (
 );
 
 export default ({colors, style, onClick, selected}) => {
+  const getBaseColor = value =>
+    colors[value]['500'] ?? Object.values(colors[value])[0];
+
   return (
     <View style={style}>
       {Object.keys(colors).map((value, index) => {
@@ -37,7 +40,7 @@ export default ({colors, style, onClick, selected}) => {
             key={index}
             activeOpacity={0.6}
             onPress={() => onClick(value)}>
-            <ColorCircle selected={isSelected} {...colors[value]['500']} />
+            <ColorCircle selected={isSelected} {...getBaseColor(value)} />
           </TouchableOpacity>
         );
       })}

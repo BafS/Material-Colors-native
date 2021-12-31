@@ -12,23 +12,28 @@ import {StyleSheet, View} from 'react-native';
 
 import ColorsPanel from './src/ColorsPanel';
 import ColorsListPanel from './src/ColorsListPanel';
-import {colors} from './src/colors';
+import colors from './src/colors';
+
+const selectedColors = colors.material;
 
 const App: () => Node = () => {
-  const [colorName, setColorName] = useState('red');
+  const [colorName, setColorName] = useState('');
+
+  const selectedColor =
+    colorName === '' ? Object.keys(selectedColors)[0] : colorName;
 
   return (
     <View style={styles.container}>
       <ColorsListPanel
         style={styles.leftPane}
-        colors={colors}
-        selected={colorName}
+        colors={selectedColors}
+        selected={selectedColor}
         onClick={setColorName}
       />
       <ColorsPanel
         style={styles.rightPane}
-        name={colorName}
-        palette={colors[colorName]}
+        name={selectedColor}
+        palette={selectedColors[selectedColor]}
       />
     </View>
   );
