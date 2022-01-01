@@ -12,7 +12,7 @@ const ColorBox = ({name, color}) => {
     <TouchableOpacity
       activeOpacity={0.4}
       style={{
-        // flex: 1,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingLeft: 10,
@@ -20,7 +20,8 @@ const ColorBox = ({name, color}) => {
         alignItems: 'center',
         margin: 1,
         borderRadius: 2,
-        height: 32,
+        minHeight: 32,
+        maxHeight: 64,
         backgroundColor: color,
       }}
       onPress={() => Clipboard.setString(color)}>
@@ -59,15 +60,6 @@ export default ({style, palette, name}) => {
 
   return (
     <View style={style}>
-      <Text
-        style={{
-          margin: 8,
-          textAlign: 'right',
-          fontSize: 11,
-          color: '#666',
-        }}>
-        {name[0].toUpperCase() + name.slice(1).replace('-', ' ')}
-      </Text>
       <Animated.View
         style={[
           style,
@@ -76,7 +68,7 @@ export default ({style, palette, name}) => {
             transform: [{scaleY: springAnim}],
           },
         ]}>
-        {Object.keys(palette).map((value, index) => (
+        {Object.keys(palette ?? []).map((value, index) => (
           <ColorBox key={index} name={value} color={palette[value].color} />
         ))}
         <Text
