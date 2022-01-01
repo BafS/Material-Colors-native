@@ -10,17 +10,18 @@ import React, {useState} from 'react';
 import type {Node} from 'react';
 import {StyleSheet, View} from 'react-native';
 
-import ColorsPanel from './src/ColorsPanel';
-import ColorsListPanel from './src/ColorsListPanel';
-import colors from './src/colors';
+import ColorsPanel from './ColorsPanel';
+import ColorsListPanel from './ColorsListPanel';
+import colors from './colors';
 
-const selectedColors = colors.material;
+const selectedColors = colors.material.colors;
 
 const App: () => Node = () => {
   const [colorName, setColorName] = useState('');
 
-  const selectedColor =
-    colorName === '' ? Object.keys(selectedColors)[0] : colorName;
+  const selectedColor = selectedColors[colorName]
+    ? colorName
+    : Object.keys(selectedColors)[0];
 
   return (
     <View style={styles.container}>
