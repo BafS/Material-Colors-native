@@ -60,15 +60,6 @@ export default ({style, palette, name}) => {
 
   return (
     <View style={style}>
-      <Text
-        style={{
-          margin: 8,
-          textAlign: 'right',
-          fontSize: 11,
-          color: '#666',
-        }}>
-        {(name[0] ?? '').toUpperCase() + name.slice(1).replace('-', ' ')}
-      </Text>
       <Animated.View
         style={[
           style,
