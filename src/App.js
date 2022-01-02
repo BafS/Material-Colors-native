@@ -61,9 +61,13 @@ const styles = StyleSheet.create({
   },
 
   colorsListPanel: {
-    padding: 5,
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'column',
+    maxWidth: 36,
     paddingTop: 4,
-    paddingBottom: 20,
+    paddingBottom: 9,
     borderRightColor: '#eee',
     borderRightWidth: 1,
   },
@@ -72,9 +76,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     paddingTop: 2,
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingBottom: 4,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 5,
   },
 });
 

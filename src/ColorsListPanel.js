@@ -7,7 +7,6 @@ const ColorCircle = ({hex: color, selected, onMouseEnter, onMouseLeave}) => (
       // cursor: 'pointer',
       width: 15,
       height: 15,
-      margin: 5,
       borderRadius: 20,
       backgroundColor: color,
       alignItems: 'center',
@@ -31,9 +30,12 @@ export default ({colors, style, onClick, selected}) => {
   const getBaseColor = value =>
     colors[value]['500'] ?? Object.values(colors[value])[0];
 
+  const colorsKeys = Object.keys(colors);
+  const maxHeight = colorsKeys.length * 30;
+
   return (
-    <View style={style}>
-      {Object.keys(colors).map((value, index) => {
+    <View style={{...style, maxHeight}}>
+      {colorsKeys.map((value, index) => {
         const isSelected = value === selected;
         return (
           <TouchableOpacity
