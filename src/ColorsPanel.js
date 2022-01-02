@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from 'react';
-import {Animated, Text, View, Clipboard, TouchableOpacity} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, Text, View, Clipboard, TouchableOpacity, ScrollView} from 'react-native';
 
 const luminosity = hexStr =>
   parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
@@ -45,7 +45,10 @@ const ColorBox = ({name, color}) => {
 };
 
 export default ({style, palette, name}) => {
+  const [isScroll, setIsScroll] = useState(false);
   const springAnim = useRef(new Animated.Value(0)).current;
+
+  const paletteKeys = Object.keys(palette ?? []);
 
   useEffect(() => {
     springAnim.setValue(0.6);
@@ -58,20 +61,43 @@ export default ({style, palette, name}) => {
     }).start();
   }, [springAnim, name]);
 
+  /**
+   * @param {import('react-native').LayoutChangeEvent} e
+   * @return {float}
+   */
+  const getColorItemSize = e =>
+    e.nativeEvent.layout.height / paletteKeys.length;
+
+  const inner = (
+    <Animated.View
+      style={[
+        style,
+        {
+          opacity: springAnim,
+          transform: [{scaleY: springAnim}],
+        },
+      ]}>
+      {paletteKeys.map((value, index) => (
+        <ColorBox key={index} name={value} color={palette[value].hex} />
+      ))}
+    </Animated.View>
+  );
+
+  if (isScroll) {
+    return (
+      <ScrollView
+        style={{flex: 1}}
+        onLayout={e => getColorItemSize(e) > 34 && setIsScroll(false)}>
+        {inner}
+      </ScrollView>
+    );
+  }
+
   return (
-    <View style={style}>
-      <Animated.View
-        style={[
-          style,
-          {
-            opacity: springAnim,
-            transform: [{scaleY: springAnim}],
-          },
-        ]}>
-        {Object.keys(palette ?? []).map((value, index) => (
-          <ColorBox key={index} name={value} color={palette[value].hex} />
-        ))}
-      </Animated.View>
+    <View
+      style={{flex: 1}}
+      onLayout={e => getColorItemSize(e) < 34 && setIsScroll(true)}>
+      {inner}
     </View>
   );
 };
