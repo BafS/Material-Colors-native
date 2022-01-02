@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 
-const ColorCircle = ({color, selected, onMouseEnter, onMouseLeave}) => (
+const ColorCircle = ({hex: color, selected, onMouseEnter, onMouseLeave}) => (
   <View
     style={{
       // cursor: 'pointer',

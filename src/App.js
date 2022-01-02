@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     paddingLeft: 5,
     paddingRight: 5,
+    paddingBottom: 4,
   },
 });
 

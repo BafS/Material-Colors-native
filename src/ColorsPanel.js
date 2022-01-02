@@ -69,16 +69,8 @@ export default ({style, palette, name}) => {
           },
         ]}>
         {Object.keys(palette ?? []).map((value, index) => (
-          <ColorBox key={index} name={value} color={palette[value].color} />
+          <ColorBox key={index} name={value} color={palette[value].hex} />
         ))}
-        <Text
-          style={{
-            margin: 8,
-            textAlign: 'right',
-            fontSize: 17,
-            color: '#333',
-          }}
-        />
       </Animated.View>
     </View>
   );
