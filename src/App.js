@@ -6,41 +6,84 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import type {Node} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {RecoilRoot, useRecoilValue} from 'recoil';
+import {StyleSheet, View, Animated} from 'react-native';
 
 import ColorsPanel from './ColorsPanel';
 import ColorsListPanel from './ColorsListPanel';
 import Header from './Header';
+import Settings from './Settings';
 import colors from './colors';
+import {settingsState} from './atoms';
 
-const selectedColors = colors.material.colors;
+const Main = () => {
+  const settings = useRecoilValue(settingsState);
 
-const App: () => Node = () => {
   const [colorName, setColorName] = useState('');
+  const [showSettings, setShowSettings] = useState(false);
 
-  const selectedColor = selectedColors[colorName]
+  const selectedColorTheme = colors[settings.colorTheme].colors;
+
+  const selectedColor = selectedColorTheme[colorName]
     ? colorName
-    : Object.keys(selectedColors)[0];
+    : Object.keys(selectedColorTheme)[0];
+
+  const hasCategories = selectedColor !== '_default';
+
+  const toggleSettings = () => setShowSettings(!showSettings);
+
+  const springAnimSettings = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.spring(springAnimSettings, {
+      toValue: showSettings ? 1 : 0,
+      useNativeDriver: true,
+    }).start();
+  }, [springAnimSettings, showSettings]);
 
   return (
     <View style={styles.container}>
-      <Header style={styles.header} title={selectedColor}/>
-      <ColorsListPanel
-        style={styles.colorsListPanel}
-        colors={selectedColors}
-        selected={selectedColor}
-        onClick={setColorName}
+      <Header
+        style={styles.header}
+        title={hasCategories ? selectedColor : colors[settings.colorTheme].name}
+        onSettingsPress={toggleSettings}
       />
+      {showSettings ? (
+        <Animated.View
+          style={[
+            {...styles.settings, left: hasCategories ? 36 : 0},
+            {
+              opacity: springAnimSettings,
+            },
+          ]}>
+          <Settings onDonePress={toggleSettings} />
+        </Animated.View>
+      ) : null}
+      {hasCategories ? (
+        <ColorsListPanel
+          style={styles.colorsListPanel}
+          colors={selectedColorTheme}
+          selected={selectedColor}
+          onClick={setColorName}
+        />
+      ) : null}
       <ColorsPanel
         style={styles.colorsPanel}
+        colorFormat={settings.colorFormat}
         name={selectedColor}
-        palette={selectedColors[selectedColor]}
+        palette={selectedColorTheme[selectedColor]}
       />
     </View>
   );
 };
+
+const App: () => Node = () => (
+  <RecoilRoot>
+    <Main />
+  </RecoilRoot>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -51,13 +94,31 @@ const styles = StyleSheet.create({
   },
 
   header: {
+    flexDirection: 'row',
     position: 'absolute',
-    height: 25,
-    paddingTop: 8,
-    paddingRight: 13,
+    height: 26,
+    paddingTop: 4,
+    paddingRight: 6,
     top: 0,
     right: 0,
+  },
+
+  settings: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    padding: 6,
+    paddingTop: 8,
+    paddingBottom: 8,
+    zIndex: 2,
     left: 0,
+    right: 0,
+    top: 26,
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
+    shadowColor: '#000',
+    shadowRadius: 4,
+    shadowOffset: {width: 0, height: 8},
+    shadowOpacity: 0.08,
   },
 
   colorsListPanel: {
