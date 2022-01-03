@@ -1,5 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Animated, Text, View, Clipboard, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  Animated,
+  Text,
+  View,
+  Clipboard,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 
 const luminosity = hexStr =>
   parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);

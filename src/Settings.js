@@ -9,10 +9,10 @@ export default ({onDonePress}) => {
   const [settings, setSettings] = useRecoilState(settingsState);
 
   return (
-    <View>
+    <View style={{maxWidth: 400}}>
       <Text
         style={{
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: 'bold',
           marginTop: 2,
           marginBottom: 2,
@@ -22,8 +22,9 @@ export default ({onDonePress}) => {
       </Text>
       <Text
         style={{
+          fontSize: 15,
           marginTop: 8,
-          marginBottom: 5,
+          marginBottom: 6,
           marginLeft: 3,
         }}>
         Color theme

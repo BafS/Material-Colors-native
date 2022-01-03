@@ -16,7 +16,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Material Colors" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About materialcolors" id="5kV-Vb-QxS">
+                                        <menuItem title="About MaterialColors" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
