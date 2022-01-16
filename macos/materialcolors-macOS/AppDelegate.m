@@ -23,6 +23,16 @@
   // Insert code here to tear down your application
 }
 
+- (BOOL) applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
+  if (!flag) {
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSWindowController *controllerWindow = [[NSWindowController alloc] init];
+    controllerWindow = [storyboard instantiateInitialController];
+    [controllerWindow showWindow:self];
+  }
+  return flag;
+}
+
 #pragma mark - RCTBridgeDelegate Methods
 
 - (NSURL *)sourceURLForBridge:(__unused RCTBridge *)bridge {
