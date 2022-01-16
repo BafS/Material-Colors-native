@@ -1,12 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Animated, Text, View, Clipboard, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  Animated,
+  Text,
+  View,
+  Clipboard,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 
 const luminosity = hexStr =>
   parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
 
-const ColorBox = ({name, color}) => {
+/**
+ * @param {{name: string, color: string, formatter: (color: string) => string}} param0
+ */
+const ColorBox = ({name, color, formatter}) => {
   const hexStr = color.replace(/^#/, '');
   const textColor = luminosity(hexStr) < 26 ? '#fff' : '#111';
+  const formatedColor = formatter(hexStr);
 
   return (
     <TouchableOpacity
@@ -24,7 +35,7 @@ const ColorBox = ({name, color}) => {
         maxHeight: 64,
         backgroundColor: color,
       }}
-      onPress={() => Clipboard.setString(color)}>
+      onPress={() => Clipboard.setString(formatedColor)}>
       <Text
         style={{
           color: textColor,
@@ -38,13 +49,13 @@ const ColorBox = ({name, color}) => {
           color: textColor,
           fontSize: 11,
         }}>
-        {color}
+        {formatedColor}
       </Text>
     </TouchableOpacity>
   );
 };
 
-export default ({style, palette, name}) => {
+export default ({style, palette, name, colorFormat}) => {
   const [isScroll, setIsScroll] = useState(false);
   const springAnim = useRef(new Animated.Value(0)).current;
 
@@ -68,6 +79,8 @@ export default ({style, palette, name}) => {
   const getColorItemSize = e =>
     e.nativeEvent.layout.height / paletteKeys.length;
 
+  const formatter = hex => `#${hex}`;
+
   const inner = (
     <Animated.View
       style={[
@@ -78,7 +91,12 @@ export default ({style, palette, name}) => {
         },
       ]}>
       {paletteKeys.map((value, index) => (
-        <ColorBox key={index} name={value} color={palette[value].hex} />
+        <ColorBox
+          key={index}
+          name={value}
+          color={palette[value].hex}
+          formatter={formatter}
+        />
       ))}
     </Animated.View>
   );
