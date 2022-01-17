@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-
-const luminosity = hexStr =>
-  parseInt(hexStr[0], 16) + parseInt(hexStr[2], 16) + parseInt(hexStr[4], 16);
+import {getFormater, luminosity} from './utils';
 
 /**
  * @param {{name: string, color: string, formatter: (color: string) => string}} param0
@@ -55,6 +53,9 @@ const ColorBox = ({name, color, formatter}) => {
   );
 };
 
+/**
+ * @param {{style: any, palette: {[name: string]: {hex: string}}, name: string, colorFormat: string}} param0
+ */
 export default ({style, palette, name, colorFormat}) => {
   const [isScroll, setIsScroll] = useState(false);
   const springAnim = useRef(new Animated.Value(0)).current;
@@ -79,7 +80,7 @@ export default ({style, palette, name, colorFormat}) => {
   const getColorItemSize = e =>
     e.nativeEvent.layout.height / paletteKeys.length;
 
-  const formatter = hex => `#${hex}`;
+  const formatter = getFormater(colorFormat);
 
   const inner = (
     <Animated.View

@@ -37,6 +37,24 @@ export default ({onDonePress}) => {
         ))}
       </Picker>
 
+      <Text
+        style={{
+          fontSize: 15,
+          marginTop: 8,
+          marginBottom: 6,
+          marginLeft: 3,
+        }}>
+        Color format
+      </Text>
+      <Picker
+        selectedValue={settings.colorTheme}
+        onValueChange={colorFormat => setSettings({...settings, colorFormat})}>
+        <Picker.Item label="Hexadecimal (#ab12ef)" value="#hex" />
+        <Picker.Item label="Hexadecimal (ab12ef)" value="hex" />
+        <Picker.Item label="RGB (171, 18, 239)" value="rgb-simple" />
+        <Picker.Item label="RGB (rgb(171, 18, 239))" value="rgb" />
+      </Picker>
+
       <Button title="Done" onPress={onDonePress} />
     </View>
   );
