@@ -45,7 +45,6 @@ const ColorBox = ({name, color, formatter}) => {
       </Text>
       <Text
         style={{
-          fontFamily: 'Monaco',
           color: textColor,
           fontSize: 11,
         }}>
